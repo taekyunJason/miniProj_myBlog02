@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const Post = require("./schemas/post");
 const User = require("./schemas/user");
 const jwt = require("jsonwebtoken");
+const authMiddleWare = require("./auth/auth-middleware");
 
 const token = jwt.sign({ test: true }, "my-secret-key");
 console.log(token);
@@ -32,6 +33,12 @@ router.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/templates/loginAndSignUp.html"));
 });
 
+router.get("/main", (req, res) => {
+  console.log("메인 화면입니다");
+  const path = require("path");
+  res.sendFile(path.join(__dirname + "/templates/main.html"));
+});
+
 router.post("/users", async (req, res) => {
   const { nickName, email, password, passwordConfirm } = req.body;
 
@@ -57,6 +64,29 @@ router.post("/users", async (req, res) => {
   const user = new User({ email, nickName, password });
   await user.save();
   res.status(201).send({});
+});
+
+router.post("/auth", async (req, res) => {
+  const { nickName, password } = req.body;
+
+  const user = await User.findOne({ nickName, password }).exec();
+
+  if (!user) {
+    res.status(400).send({
+      errorMessage: "입력된 정보가 잘못되었습니다.",
+    });
+    return;
+  }
+
+  const token = jwt.sign({ userId: user.userId }, "my-secret-key");
+
+  res.send({
+    token,
+  });
+});
+
+router.get("/users/me", authMiddleWare, async (req, res) => {
+  res.send({ user: res.locals.user });
 });
 
 router.post("/posts", async (req, res) => {

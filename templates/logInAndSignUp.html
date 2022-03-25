@@ -25,10 +25,10 @@
             </div>
 
             <div id="login" action="" class="input-group">
-                <input type="text" class="input-field" placeholder="Enter Nickname" required>
-                <input type="password" class="input-field" placeholder="Enter Password" required>
+                <input id="enterNickname" type="text" class="input-field" placeholder="Enter Nickname" required>
+                <input id="enterPassword" type="password" class="input-field" placeholder="Enter Password" required>
                 <input type="checkbox" class="checkbox"><span>Remember Password</span>
-                <button class="submit">Login</button>
+                <button onclick="moveToMain()" class="submit">Login</button>
             </div>
             <div id="register" action="" class="input-group">
                 <input id="inputNickname" type="text" class="input-field" placeholder="Enter your Nickname" required>
@@ -66,7 +66,7 @@
             const password1 = $("#inputPassword1").val();
             const password2 = $("#inputPassword2").val();
 
-            if (!nickname || !email || !password2 || !password1) {
+            if (!nickname || !email || !password1 || !password2) {
                 alert("값을 입력해주세요!")
             }
             console.log(nickname, email, password1, password2)
@@ -89,6 +89,26 @@
                 },
             });
             location.href = "/"
+        }
+        function moveToMain() {
+            const nickname = $("#enterNickname").val();
+            const password = $("#enterPassword").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/auth",
+                data: {
+                    nickname: nickname,
+                    password: password,
+                },
+                success: function (response) {
+                    localStorage.setItem("token", response.token);
+                    window.location.replace("/main.html");
+                },
+                error: function (error) {
+                    customAlert(error.responseJSON.errorMessage);
+                },
+            });
         }
     </script>
 </body>
