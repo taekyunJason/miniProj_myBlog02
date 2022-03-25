@@ -29,11 +29,14 @@ const router = express.Router();
 router.get("/", (req, res) => {
   console.log("로그인 화면입니다");
   const path = require("path");
-  res.sendFile(path.join(__dirname + "/templates/login.html"));
+  res.sendFile(path.join(__dirname + "/templates/loginAndSignUp.html"));
 });
 
 router.post("/users", async (req, res) => {
   const { nickName, email, password, passwordConfirm } = req.body;
+
+  console.log(req.body);
+
   if (password !== passwordConfirm) {
     res.status(400).send({
       errorMessage: "비밀번호가 일치하지 않습니다.",
