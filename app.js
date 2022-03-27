@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Post = require("./schemas/post");
 const User = require("./schemas/user");
 const jwt = require("jsonwebtoken");
-const authMiddleWare = require("./auth/auth-middleware");
+const authMiddleWare = require("./API/auth/auth-middleware");
 
 const token = jwt.sign({ test: true }, "my-secret-key");
 console.log(token);
@@ -40,6 +40,12 @@ router.get("/main", (req, res) => {
   console.log("메인 화면입니다");
   const path = require("path");
   res.sendFile(path.join(__dirname + "/templates/main.html"));
+});
+
+router.get("/post", (req, res) => {
+  console.log("작성 화면입니다");
+  const path = require("path");
+  res.sendFile(path.join(__dirname + "/templates/post.html"));
 });
 
 router.post("/users", async (req, res) => {
