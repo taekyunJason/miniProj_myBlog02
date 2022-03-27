@@ -22,7 +22,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
     <!--    Javascript-->
-    <script src="/htmlApi.js"></script>
+    <script src="/authApi.js"></script>
 
     <!-- Include CSS
     <link href="/meStyleSheet.css" rel="stylesheet" /> -->
@@ -30,12 +30,26 @@
 
 </head>
 <script>
-
+    if (localStorage.getItem("token")) {
+        getUserToken(function () {
+            console.log("로그인에 성공했습니다!")
+            // window.location.replace("/goods.html");
+        });
+    }
 
 
 </script>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid" style="flex-direction: column;">
+            <a class="navbar-brand" href="/main">세상을 바꾸는 생각, 씽크탱크❗💬</a>
+            <a class="nav-link" href="/main/post">포스트 하러가기</a>
+        </div>
+        <button type="button" onclick="signOut()">
+            로그아웃하기
+        </button>
+    </nav>
     <table class="table table-hover">
         <thead>
             <tr>
@@ -57,7 +71,7 @@
     </table>
 
     <hr />
-    <a class="btn btn-default">글쓰기</a>
+
 
     <div class="text-center">
         <ul class="pagination">

@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const Post = require("./schemas/post");
 const User = require("./schemas/user");
@@ -22,6 +21,9 @@ db.on("error", console.error.bind(console, "connection error:"));
 const app = express();
 const router = express.Router();
 
+app.use("/", express.urlencoded({ extended: false }), router);
+app.use(express.static("templates"));
+
 //미들웨어를 붙이는데, /api로 접근하면 뒤에 있는 express.json()미들웨어로 json바디를 받을 수 있음,(body-parser)
 //이후에 라우터도 사용함, 단순히 router.get에는 '/'로 경로가 정의되어 있지만,
 //app.use에서 '/api'로 접근해야 사용이 가능하기 때문에 이렇게 작성해야만 라우터로 연결이 됨.
@@ -33,6 +35,7 @@ router.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/templates/loginAndSignUp.html"));
 });
 
+//회원가입,로그인 페이지 제외한 페이지에 접근시 get /users/me 경로로 접근!
 router.get("/main", (req, res) => {
   console.log("메인 화면입니다");
   const path = require("path");
@@ -86,7 +89,14 @@ router.post("/auth", async (req, res) => {
 });
 
 router.get("/users/me", authMiddleWare, async (req, res) => {
-  res.send({ user: res.locals.user });
+  const { user } = res.locals;
+
+  res.send({
+    user: {
+      email: user.email,
+      nickName: user.nickName,
+    },
+  });
 });
 
 router.post("/posts", async (req, res) => {
@@ -103,9 +113,6 @@ router.post("/posts", async (req, res) => {
 
   // res.send({ post });
 });
-
-app.use("/", express.urlencoded({ extended: false }), router);
-app.use(express.static("templates"));
 
 app.listen(8080, () => {
   console.log("서버가 켜졌어요!");

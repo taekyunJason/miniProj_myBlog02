@@ -16,6 +16,7 @@
 </head>
 
 <body>
+
     <div class="wrap">
         <div class="form-wrap">
             <div class="button-wrap">
@@ -80,33 +81,42 @@
                     passwordConfirm: password2,
                 },
                 success: function (response) {
-                    alert("회원가입을 축하드립니다!", function () {
-                        window.location.replace("/");
-                    });
+                    alert("회원가입을 축하드립니다!");
+                    window.location.replace("/");
                 },
                 error: function (error) {
                     alert(error.responseJSON.errorMessage);
                 },
             });
-            location.href = "/"
         }
         function moveToMain() {
-            const nickname = $("#enterNickname").val();
+            const nickName = $("#enterNickname").val();
             const password = $("#enterPassword").val();
 
             $.ajax({
                 type: "POST",
                 url: "/auth",
                 data: {
-                    nickname: nickname,
+                    nickName: nickName,
                     password: password,
                 },
                 success: function (response) {
+                    console.log("로그인에 성공했습니다")
+                    alert("환영합니다!")
                     localStorage.setItem("token", response.token);
-                    window.location.replace("/main.html");
+                    window.location.replace("/main");
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/users/me",
+                        data: {},
+                        success: function (response) {
+                            console.log("사용자인증 미들웨어가 실행되었습니다.")
+                        }
+                    })
                 },
                 error: function (error) {
-                    customAlert(error.responseJSON.errorMessage);
+                    alert(error.responseJSON.errorMessage);
                 },
             });
         }
