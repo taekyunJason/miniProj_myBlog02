@@ -48,6 +48,12 @@ router.get("/post", (req, res) => {
   res.sendFile(path.join(__dirname + "/templates/post.html"));
 });
 
+router.get("/detail", (req, res) => {
+  console.log("상세 화면입니다");
+  const path = require("path");
+  res.sendFile(path.join(__dirname + "/templates/detail.html"));
+});
+
 router.post("/users", async (req, res) => {
   const { nickName, email, password, passwordConfirm } = req.body;
 
@@ -126,8 +132,8 @@ router.post("/posts", async (req, res) => {
 
 router.get("/posts", async (req, res) => {
   // const postDetail = req;
-  // console.log("postDetail : ", postDetail);
-  const postDetail = Post.find({});
+  const postDetail = await Post.find({});
+  console.log("postDetail : ", postDetail);
   res.json(postDetail);
 });
 

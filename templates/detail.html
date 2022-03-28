@@ -34,7 +34,9 @@
 
 </head>
 <script>
-
+    $(document).ready(function () {
+        getPostDetail();
+    });
 
 
 </script>
@@ -43,13 +45,13 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid" style="flex-direction: column;">
             <a class="navbar-brand" href="/post">세상을 바꾸는 생각, 씽크탱크❗💬</a>
-            <button type="button" onclick="post()" class="btn btn-outline-dark">저장하기</button>
+            <button type="button" onclick="post()" class="btn btn-outline-dark">수정하기</button>
         </div>
         <button type="button" onclick="signOut()" class="btn btn-outline-dark">로그아웃</button>
 
     </nav>
 
-    <h1>포스트 작성 화면</h1>
+    <h1>포스트 상세 화면</h1>
     <h3 style="margin-top: 30px;">Title</h3>
     <div class="form-floating">
         <textarea class="form-control" placeholder="Please Enter Title" id="inputText"></textarea>
