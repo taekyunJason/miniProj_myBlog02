@@ -128,10 +128,10 @@ function addToCart(goodsId, quantity, callback) {
   });
 }
 
-function buyLocation(params) {
-  sessionStorage.setItem("ordered", JSON.stringify(params));
-  location.href = "order.html";
-}
+// function buyLocation(params) {
+//   sessionStorage.setItem("ordered", JSON.stringify(params));
+//   location.href = "order.html";
+// }
 
 function getCarts(callback) {
   $.ajax({

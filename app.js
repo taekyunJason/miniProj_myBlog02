@@ -6,10 +6,10 @@ const jwt = require("jsonwebtoken");
 const authMiddleWare = require("./templates/API_Check/authCheck/auth-middleware");
 
 const token = jwt.sign({ test: true }, "my-secret-key");
-console.log(token);
+// console.log(token);
 
 const decode = jwt.verify(token, "my-secret-key");
-console.log(decode);
+// console.log(decode);
 
 mongoose.connect("mongodb://localhost/prac_blog_db", {
   useNewUrlParser: true,
@@ -122,6 +122,13 @@ router.post("/posts", async (req, res) => {
   await postList.save();
 
   res.send({ msg: "저장되었습니다!" });
+});
+
+router.get("/posts", async (req, res) => {
+  // const postDetail = req;
+  // console.log("postDetail : ", postDetail);
+  const postDetail = Post.find({});
+  res.json(postDetail);
 });
 
 app.listen(8080, () => {

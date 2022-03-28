@@ -89,6 +89,10 @@
     </div>
 
     <script>
+        $(document).ready(function () {
+            getPostList();
+        });
+
         if (localStorage.getItem("token")) {
             getUserToken(function () {
                 console.log("로그인에 성공했습니다!")
