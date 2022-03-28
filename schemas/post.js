@@ -7,9 +7,9 @@ const postSchema = new mongoose.Schema({
   number: Number,
 });
 
-postSchema.virtual("postId").get(function () {
-  return this._id.toHexString();
-});
+// postSchema.virtual("postId").get(function () {
+//   return this._id.toHexString();
+// });
 postSchema.set("toJSON", {
   virtuals: true,
 });

@@ -137,6 +137,13 @@ router.get("/posts", async (req, res) => {
   res.json(postDetail);
 });
 
+router.get("/posts/:postId", async (req, res) => {
+  const { postId } = req.params;
+  const [detail] = await Post.find({ _id: postId });
+  console.log(detail);
+  res.json({ detail });
+});
+
 app.listen(8080, () => {
   console.log("서버가 켜졌어요!");
 });

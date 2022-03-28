@@ -47,28 +47,29 @@ function getPostList() {
 }
 
 function getPostDetail() {
+  let postId = new URLSearchParams(location.search).get("postId");
+  console.log(postId);
+
   $.ajax({
     type: "GET",
-    url: "/posts",
+    url: `/posts/${postId}`,
+    contentType: "application/jsion",
     data: {},
     success: function (response) {
-      let rows = response;
+      let rows = response["detail"];
+      console.log(rows);
 
-      for (let i = 0; i < rows.length; i++) {
-        let title = rows[i]["title"];
-        let content = rows[i]["content"];
-        let id = rows[i]["id"];
-        let date = rows[i]["date"].split("T")[0];
+      let title = rows["title"];
+      let content = rows["content"];
+      let id = rows["id"];
+      let date = rows["date"].split("T")[0];
+      console.log(title, content);
 
-        let temp_html = `<tr onClick="location.href='/detail?postId=${id}'">
-                            <td>번호</td>
-                            <td>${title}</td>
-                            <td>사용자</td>
-                            <td>${date}</td>
-                            <td>조회수</td>
-                        </tr>`;
-        $("#postList").append(temp_html);
-      }
+      let postTitle = `<input class="form-control" type="text" value=${title} aria-label="readonly input example" readonly></input>`;
+      let postContent = `<input class="form-control" type="text" value=${content} aria-label="readonly input example" readonly></input>`;
+
+      $("#inputText").append(postTitle);
+      $("#inputContent").append(postContent);
     },
   });
 }
