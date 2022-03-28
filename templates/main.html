@@ -22,23 +22,14 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
     <!--    Javascript-->
-    <script src="/authApi.js"></script>
+    <script src="./API_Check/authCheck/authApi.js"></script>
+    <script src="./API_Check/posting/postApi.js"></script>
+
 
     <!-- Include CSS
     <link href="/meStyleSheet.css" rel="stylesheet" /> -->
 
-
 </head>
-<script>
-    if (localStorage.getItem("token")) {
-        getUserToken(function () {
-            console.log("로그인에 성공했습니다!")
-            // window.location.replace("/goods.html");
-        });
-    }
-
-
-</script>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -46,7 +37,8 @@
             <a class="navbar-brand" href="/main">세상을 바꾸는 생각, 씽크탱크❗💬</a>
             <a class="nav-link" href="/post">포스트 하러가기</a>
         </div>
-        <button onclick="signOut()">로그아웃</button>
+
+        <button type="button" onclick="signOut()" class="btn btn-outline-dark">로그아웃</button>
     </nav>
     <table class="table table-hover">
         <thead>
@@ -58,27 +50,29 @@
                 <th>Cnt</th>
             </tr>
         </thead>
-        <tbody>
-            <td>1</td>
-            <td>테스트입니다</td>
-            <td>홍길동</td>
-            <td>2022.01.01</td>
-            <td>150</td>
-        </tbody>
-        <tbody>
-            <td>1</td>
-            <td>테스트입니다</td>
-            <td>홍길동</td>
-            <td>2022.01.01</td>
-            <td>150</td>
-        </tbody>
-        <tbody>
-            <td>1</td>
-            <td>테스트입니다</td>
-            <td>홍길동</td>
-            <td>2022.01.01</td>
-            <td>150</td>
-        </tbody>
+        <div class="postList">
+            <tbody>
+                <td>1</td>
+                <td>테스트입니다</td>
+                <td>홍길동</td>
+                <td>2022.01.01</td>
+                <td>150</td>
+            </tbody>
+            <tbody>
+                <td>1</td>
+                <td>테스트입니다</td>
+                <td>홍길동</td>
+                <td>2022.01.01</td>
+                <td>150</td>
+            </tbody>
+            <tbody>
+                <td>1</td>
+                <td>테스트입니다</td>
+                <td>홍길동</td>
+                <td>2022.01.01</td>
+                <td>150</td>
+            </tbody>
+        </div>
     </table>
 
     <hr />
@@ -94,7 +88,16 @@
         </ul>
     </div>
 
+    <script>
+        if (localStorage.getItem("token")) {
+            getUserToken(function () {
+                console.log("로그인에 성공했습니다!")
+                // window.location.replace("/goods.html");
+            });
+        }
+    </script>
 
 </body>
+
 
 </html>

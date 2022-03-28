@@ -96,7 +96,7 @@ span {
 }
 
 .inputText {
-  width: 50%;
+  margin-top: 10px;
   align-items: center;
   align-content: center;
   justify-content: center;

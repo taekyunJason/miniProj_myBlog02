@@ -21,6 +21,7 @@ function getUserToken(callback) {
 }
 
 function signOut() {
+  console.log("로그아웃 되었습니다.");
   localStorage.clear();
   window.location.href = "/";
 }

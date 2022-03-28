@@ -22,12 +22,14 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
     <!--    Javascript-->
-    <script src="/authApi.js"></script>
+
+    <script src="./API_Check/authCheck/authApi.js"></script>
+    <script src="./API_Check/posting/postApi.js"></script>
+
 
 
     <!-- Include CSS -->
     <script src="style.css"></script>
-
 
 
 </head>
@@ -41,28 +43,23 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid" style="flex-direction: column;">
             <a class="navbar-brand" href="/post">세상을 바꾸는 생각, 씽크탱크❗💬</a>
-            <button class="nav-link" onclick="post()">포스트 하러가기</button>
+            <button type="button" onclick="post()" class="btn btn-outline-dark">저장하기</button>
         </div>
-        <button onclick="signOut()">로그아웃</button>
+        <button type="button" onclick="signOut()" class="btn btn-outline-dark">로그아웃</button>
+
     </nav>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <h3>Title</h3>
-                <input class="inputText" id="inputTitle" placeholder="Please Enter Title" />
-            </tr>
-            <tr>
-                <h3>Cnt</h3>
-                <input class="inputText" id="inputContent" placeholder="Please Enter Content" />
-            </tr>
-        </thead>
 
-    </table>
+    <h3 style="margin-top: 30px;">Title</h3>
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="Please Enter Title" id="inputText"></textarea>
+    </div>
 
+    <h3 style="margin-top: 30px;">Content</h3>
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="Please Enter Content" id="inputContent"
+            style="height: 300px"></textarea>
+    </div>
     <hr />
-
-
-
 </body>
 
 </html>

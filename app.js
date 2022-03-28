@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Post = require("./schemas/post");
 const User = require("./schemas/user");
 const jwt = require("jsonwebtoken");
-const authMiddleWare = require("./API/auth/auth-middleware");
+const authMiddleWare = require("./templates/API_Check/authCheck/auth-middleware");
 
 const token = jwt.sign({ test: true }, "my-secret-key");
 console.log(token);
@@ -106,7 +106,11 @@ router.get("/users/me", authMiddleWare, async (req, res) => {
 });
 
 router.post("/posts", async (req, res) => {
-  const {} = req.body;
+  const today = new Date();
+  const date = today.toLocaleDateString();
+
+  const { title, content } = req.body;
+
   const maxOrderPost = await Post.findOne().sort("-order").exec();
   let order = 1;
 
@@ -114,10 +118,10 @@ router.post("/posts", async (req, res) => {
     order = maxOrderPost.order + 1;
   }
 
-  // const post = new Post({number, order });
-  // await post.save();
+  const postList = new Post({ title, content, order, date });
+  await postList.save();
 
-  // res.send({ post });
+  res.send({ msg: "저장되었습니다!" });
 });
 
 app.listen(8080, () => {
