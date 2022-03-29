@@ -54,6 +54,12 @@ router.get("/detail", (req, res) => {
   res.sendFile(path.join(__dirname + "/templates/detail.html"));
 });
 
+router.get("/modify", (req, res) => {
+  console.log("편집 화면입니다");
+  const path = require("path");
+  res.sendFile(path.join(__dirname + "/templates/modify.html"));
+});
+
 router.post("/users", async (req, res) => {
   const { nickName, email, password, passwordConfirm } = req.body;
 

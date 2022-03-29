@@ -26,8 +26,9 @@ function getPostList() {
     data: {},
     success: function (response) {
       let rows = response;
+      console.log(rows);
 
-      for (let i = 0; i < rows.length; i++) {
+      for (let i = rows.length - 1; i >= 0; i--) {
         let title = rows[i]["title"];
         let content = rows[i]["content"];
         let id = rows[i]["id"];
@@ -65,11 +66,47 @@ function getPostDetail() {
       let date = rows["date"].split("T")[0];
       console.log(title, content);
 
-      let postTitle = `<input class="form-control" type="text" value=${title} aria-label="readonly input example" readonly></input>`;
-      let postContent = `<input class="form-control" type="text" value=${content} aria-label="readonly input example" readonly></input>`;
+      let postTitle = `<input class="form-control" type="text" placeholder=${title}  ></input>`;
+      let postContent = `<input class="form-control" type="text" placeholder=${content}  ></input>`;
 
       $("#inputText").append(postTitle);
       $("#inputContent").append(postContent);
     },
   });
 }
+
+function getPostDetailData() {
+  let postId = new URLSearchParams(location.search).get("postId");
+  console.log(postId);
+
+  $.ajax({
+    type: "GET",
+    url: `/posts/${postId}`,
+    contentType: "application/jsion",
+    data: {},
+    success: function (response) {
+      let rows = response;
+      console.log(rows);
+
+      let title = rows["title"];
+      let content = rows["content"];
+      let id = rows["id"];
+      let date = rows["date"].split("T")[0];
+      console.log(title, content);
+
+      let postTitle = `<input class="form-control" type="text" placeholder=${title}  ></input>`;
+      let postContent = `<input class="form-control" type="text" placeholder=${content}  ></input>`;
+
+      $("#inputText").append(postTitle);
+      $("#inputContent").append(postContent);
+    },
+  });
+}
+
+function moveToModify() {
+  window.location.href = "/modify";
+}
+
+function modifyPost() {}
+
+function deletePost() {}

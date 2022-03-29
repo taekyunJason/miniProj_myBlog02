@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>게시물 목록</title>
+
+    <!--    BootStrap Library-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <!--    JQuery-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <!--    Javascript-->
+
+    <script src="./API_Check/authCheck/authApi.js"></script>
+    <script src="./API_Check/posting/postApi.js"></script>
+
+
+
+    <!-- Include CSS -->
+    <link rel="stylesheet" href="./style.css" type="text/css" />
+
+
+
+</head>
+<script>
+    $(document).ready(function () {
+        getPostDetailData();
+    });
+
+
+</script>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid" style="flex-direction: column;">
+            <a class="navbar-brand" href="/main">세상을 바꾸는 생각, 씽크탱크❗💬</a>
+            <div style="flex-direction: row;">
+                <button type="button" onclick="modifyPost()" class="btn btn-outline-dark">수정하기</button>
+                <button type="button" onclick="deletePost()" class="btn btn-outline-dark">삭제하기</button>
+            </div>
+
+
+        </div>
+        <button type="button" onclick="signOut()" class="btn btn-outline-dark">로그아웃</button>
+
+    </nav>
+
+    <h1>포스트 편집 화면</h1>
+    <h3 style="margin-top: 30px;">Title</h3>
+    <div class="form-floating" id="inputText">
+        <!-- <textarea class="form-control" placeholder="Please Enter Title"></textarea>
+        <input class="form-control" id="inputText" type="text" value="Readonly input here..."
+            aria-label="readonly input example" readonly> -->
+    </div>
+
+    <h3 style="margin-top: 30px;">Content</h3>
+    <div class="form-floating" id="inputContent">
+        <!-- <textarea class="form-control" placeholder="Please Enter Content" id="inputContent"
+            style="height: 300px"></textarea> -->
+    </div>
+    <hr />
+</body>
+
+</html>
