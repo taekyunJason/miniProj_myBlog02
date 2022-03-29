@@ -27,6 +27,7 @@
   box-shadow: 0 0 600px 9px #fcae8f;
   border-radius: 30px;
 }
+
 .togglebtn {
   padding: 10px 30px;
   cursor: pointer;
@@ -45,6 +46,7 @@
   border-radius: 30px;
   transition: 0.5s;
 }
+
 .social-icons {
   margin: 30px auto;
   text-align: center;

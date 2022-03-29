@@ -39,6 +39,11 @@
         getPostDetail();
     });
 
+    function fn_spread(id) {
+        var getID = document.getElementById(id);
+        getID.style.display = getID.style.display == "block" ? "none" : "block";
+    }
+
 
 </script>
 
@@ -68,6 +73,11 @@
             style="height: 300px"></textarea> -->
     </div>
     <hr />
+
+    <div id="editBtn" style="display: none;">
+        <button type=" button" id="modifyBtn" class="btn btn-outline-primary">수정</button>
+        <button type="button" id="deltetBtn" class="btn btn-outline-danger">삭제</button>
+    </div>
 </body>
 
 </html>
