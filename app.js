@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const authMiddleWare = require("./templates/API_Check/authCheck/auth-middleware");
 
 const token = jwt.sign({ test: true }, "my-secret-key");
-// console.log(token);
+//console.log(token);
 
 const decode = jwt.verify(token, "my-secret-key");
 // console.log(decode);
@@ -20,6 +20,8 @@ db.on("error", console.error.bind(console, "connection error:"));
 
 const app = express();
 const router = express.Router();
+
+// 미들웨어 로그 남기기 : 요청이 들어온 URL 출력하기
 
 app.use("/", express.urlencoded({ extended: false }), router);
 app.use(express.static("templates"));
@@ -63,7 +65,7 @@ router.get("/modify", (req, res) => {
 router.post("/users", async (req, res) => {
   const { nickName, email, password, passwordConfirm } = req.body;
 
-  console.log(req.body);
+  // console.log(req.body);
 
   if (password !== passwordConfirm) {
     res.status(400).send({
@@ -139,31 +141,32 @@ router.post("/posts", async (req, res) => {
 router.get("/posts", async (req, res) => {
   // const postDetail = req;
   const postDetail = await Post.find({});
-  console.log("postDetail : ", postDetail);
+
   res.json(postDetail);
 });
 
 router.get("/posts/:postId", async (req, res) => {
   const { postId } = req.params;
   const [detail] = await Post.find({ _id: postId });
-  console.log(detail);
+
   res.json({ detail });
 });
 
 router.put("/posts", async (req, res) => {
-  const { title, content, id } = req.body;
+  const { title, content, dbId } = req.body;
+  // console.log(title, content, dbId);
   const post_list = await Post.updateOne(
-    { _id: id },
+    { _id: dbId },
     { $set: { title, content } }
   );
   res.json(post_list);
 });
 
-router.delete("/posts/:postId", async (req, res) => {
-  const PostId = req.query.postId;
-  console.log(PostId);
+router.delete("/posts", async (req, res) => {
+  const { id } = req.body;
 
-  const detailInfo = await Posts.deleteOne({ postId: PostId });
+  console.log(id);
+  const detailInfo = await Post.deleteOne({ id: id });
   res.json({ msg: "삭제되었습니다." });
 });
 

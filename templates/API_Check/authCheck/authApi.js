@@ -6,6 +6,7 @@ function getUserToken(callback) {
       authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     success: function (response) {
+      console.log("인증에 성공했습니다.");
       callback(response.user);
     },
     error: function (xhr, status, error) {

@@ -1,7 +1,7 @@
 function post() {
   const title = $("#inputText").val();
   const content = $("#inputContent").val();
-  console.log(title, content);
+  // console.log(title, content);
 
   $.ajax({
     type: "POST",
@@ -12,7 +12,7 @@ function post() {
       content: content,
     },
     success: function (response) {
-      console.log("포스팅되었습니다");
+      // console.log("포스팅되었습니다");
       alert(response["msg"]);
       document.location.href = "/main";
     },
@@ -26,7 +26,6 @@ function getPostList() {
     data: {},
     success: function (response) {
       let rows = response;
-      console.log(rows);
 
       for (let i = rows.length - 1; i >= 0; i--) {
         let title = rows[i]["title"];
@@ -49,7 +48,6 @@ function getPostList() {
 
 function getPostDetail() {
   let postId = new URLSearchParams(location.search).get("postId");
-  console.log(postId);
 
   $.ajax({
     type: "GET",
@@ -58,13 +56,11 @@ function getPostDetail() {
     data: {},
     success: function (response) {
       let rows = response["detail"];
-      console.log(rows);
 
       let title = rows["title"];
       let content = rows["content"];
       let id = rows["id"];
       let date = rows["date"].split("T")[0];
-      console.log(title, content);
 
       let postTitle = `<input class="form-control" type="text" value=${title} aria-label="readonly input example" readonly ></input>`;
       let postContent = `<input class="form-control" type="text" value=${content} aria-label="readonly input example" readonly ></input>`;
@@ -77,7 +73,6 @@ function getPostDetail() {
 
 function getPostDetailData() {
   let postId = new URLSearchParams(location.search).get("postId");
-  console.log(postId);
 
   $.ajax({
     type: "GET",
@@ -86,13 +81,11 @@ function getPostDetailData() {
     data: {},
     success: function (response) {
       let rows = response["detail"];
-      console.log(rows);
 
       let title = rows["title"];
       let content = rows["content"];
       let id = rows["id"];
       let date = rows["date"].split("T")[0];
-      console.log(title, content);
 
       let postTitle = `<input class="form-control" type="text" id="editedTitle" placeholder=${title}  ></input>`;
       let postContent = `<input class="form-control" type="text" id="editedContent" placeholder=${content}  ></input>`;
@@ -113,7 +106,6 @@ function moveToModify() {
     data: {},
     success: function (response) {
       let rows = response;
-      console.log(rows);
 
       for (let i = rows.length - 1; i >= 0; i--) {
         let title = rows[i]["title"];
@@ -137,8 +129,8 @@ function moveToModify() {
 }
 
 function modifyPost(dbTitle, dbContent, dbId) {
-  console.log(dbTitle, dbContent);
-  console.log("수정되었습니다.");
+  // console.log(dbTitle, dbContent);
+  // console.log("수정되었습니다.");
 
   let title = $("#editedTitle").val();
   if (!title) {
@@ -148,17 +140,16 @@ function modifyPost(dbTitle, dbContent, dbId) {
   if (!content) {
     content = dbContent;
   }
-  console.log(title, content);
+  // console.log(title, content);
 
   $.ajax({
     type: "PUT",
     url: "/posts",
-    contentType: "application/json",
-    data: JSON.stringify({
+    data: {
       title: title,
       content: content,
       dbId: dbId,
-    }),
+    },
     success: function (response) {
       alert("수정되었습니다.");
       document.location.href = "/main";
@@ -171,15 +162,12 @@ function deletePost(id) {
 
   $.ajax({
     type: "DELETE",
-    url: `/posts?postId=${postId}`, //쿼리형식
-
-    contentType: "application/json",
-    data: {}, //{} 안에 들어가는 데이터가 바디에 해당함
+    url: "/posts",
+    data: { postId: postId }, //{} 안에 들어가는 데이터가 바디에 해당함
 
     success: function (response) {
-      if (response["msg"]) {
-        document.location.href = "/main";
-      }
+      alert("삭제되었습니다.");
+      document.location.href = "/main";
     },
   });
 }
