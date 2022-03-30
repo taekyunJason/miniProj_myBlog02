@@ -26,6 +26,7 @@ function getPostList() {
     data: {},
     success: function (response) {
       let rows = response;
+      console.log(rows);
 
       for (let i = rows.length - 1; i >= 0; i--) {
         let title = rows[i]["title"];
@@ -159,11 +160,13 @@ function modifyPost(dbTitle, dbContent, dbId) {
 
 function deletePost(id) {
   let postId = id;
+  console.log(postId);
 
   $.ajax({
     type: "DELETE",
-    url: "/posts",
-    data: { postId: postId }, //{} 안에 들어가는 데이터가 바디에 해당함
+    url: `/posts?postId=${postId}`,
+    contentType: "application/json",
+    data: {}, //{} 안에 들어가는 데이터가 바디에 해당함
 
     success: function (response) {
       alert("삭제되었습니다.");

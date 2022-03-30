@@ -5,6 +5,7 @@ const postSchema = new mongoose.Schema({
   comment: String,
   date: Date,
   number: Number,
+  userId: String,
 });
 
 // postSchema.virtual("postId").get(function () {

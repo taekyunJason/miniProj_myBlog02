@@ -163,10 +163,12 @@ router.put("/posts", async (req, res) => {
 });
 
 router.delete("/posts", async (req, res) => {
-  const { id } = req.body;
+  const { postId } = req.query;
+  console.log(req.query);
 
-  console.log(id);
-  const detailInfo = await Post.deleteOne({ id: id });
+  //db안에 있는 postId라는 키값을 가지고 있는 칼럼을 지우라는 코드
+  //db에 존재하는 키값로 postId변수를 받아야 동작함.
+  const detailInfo = await Post.deleteOne({ _id: postId });
   res.json({ msg: "삭제되었습니다." });
 });
 
