@@ -150,6 +150,23 @@ router.get("/posts/:postId", async (req, res) => {
   res.json({ detail });
 });
 
+router.put("/posts", async (req, res) => {
+  const { title, content, id } = req.body;
+  const post_list = await Post.updateOne(
+    { _id: id },
+    { $set: { title, content } }
+  );
+  res.json(post_list);
+});
+
+router.delete("/posts/:postId", async (req, res) => {
+  const PostId = req.query.postId;
+  console.log(PostId);
+
+  const detailInfo = await Posts.deleteOne({ postId: PostId });
+  res.json({ msg: "삭제되었습니다." });
+});
+
 app.listen(8080, () => {
   console.log("서버가 켜졌어요!");
 });

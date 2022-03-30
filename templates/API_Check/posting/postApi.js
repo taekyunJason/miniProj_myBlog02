@@ -96,9 +96,12 @@ function getPostDetailData() {
 
       let postTitle = `<input class="form-control" type="text" id="editedTitle" placeholder=${title}  ></input>`;
       let postContent = `<input class="form-control" type="text" id="editedContent" placeholder=${content}  ></input>`;
+      let button = `<button type="button" id="modifyBtn" onClick="modifyPost('${title}','${content}','${id}')" class="btn btn-outline-primary">수정</button>
+                    <button type="button" id="deltetBtn" onClick="deletePost('${id}')" class="btn btn-outline-danger">삭제</button>`;
 
       $("#inputText").append(postTitle);
       $("#inputContent").append(postContent);
+      $("#editBtn").append(button);
     },
   });
 }
@@ -133,6 +136,50 @@ function moveToModify() {
   fn_spread("editBtn");
 }
 
-function modifyPost() {}
+function modifyPost(dbTitle, dbContent, dbId) {
+  console.log(dbTitle, dbContent);
+  console.log("수정되었습니다.");
 
-function deletePost() {}
+  let title = $("#editedTitle").val();
+  if (!title) {
+    title = dbTitle;
+  }
+  let content = $("#editedContent").val();
+  if (!content) {
+    content = dbContent;
+  }
+  console.log(title, content);
+
+  $.ajax({
+    type: "PUT",
+    url: "/posts",
+    contentType: "application/json",
+    data: JSON.stringify({
+      title: title,
+      content: content,
+      dbId: dbId,
+    }),
+    success: function (response) {
+      alert("수정되었습니다.");
+      document.location.href = "/main";
+    },
+  });
+}
+
+function deletePost(id) {
+  let postId = id;
+
+  $.ajax({
+    type: "DELETE",
+    url: `/posts?postId=${postId}`, //쿼리형식
+
+    contentType: "application/json",
+    data: {}, //{} 안에 들어가는 데이터가 바디에 해당함
+
+    success: function (response) {
+      if (response["msg"]) {
+        document.location.href = "/main";
+      }
+    },
+  });
+}
