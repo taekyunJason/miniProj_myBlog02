@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Post = require("./schemas/post");
 const User = require("./schemas/user");
+const Comment = require("./schemas/comment");
 const jwt = require("jsonwebtoken");
 const authMiddleWare = require("./templates/API_Check/authCheck/auth-middleware");
 
@@ -148,8 +149,12 @@ router.get("/posts", async (req, res) => {
 router.get("/posts/:postId", async (req, res) => {
   const { postId } = req.params;
   const [detail] = await Post.find({ _id: postId });
+  const userId = res.locals.user._id;
+  const nickName = res.locals.user.nickName;
 
-  res.json({ detail });
+  const commentList = await Comment.find({});
+
+  res.json({ detail, commentList, userId, nickName });
 });
 
 router.put("/posts", async (req, res) => {
@@ -171,6 +176,23 @@ router.delete("/posts", async (req, res) => {
   const detailInfo = await Post.deleteOne({ _id: postId });
   res.json({ msg: "삭제되었습니다." });
 });
+
+router.post("/comment/:postId", async (req, res) => {
+  const { postId } = req.params;
+  const { comment } = req.body;
+  // console.log(postId);
+
+  await Comment.create({ comment, postId });
+  // await commentList.save();
+
+  res.send({ msg: "저장되었습니다!" });
+});
+
+// router.get("/comment", async (req, res) => {
+//   const commentList = await Comment.find({});
+//   console.log(commentList);
+//   res.json(commentList);
+// });
 
 app.listen(8080, () => {
   console.log("서버가 켜졌어요!");

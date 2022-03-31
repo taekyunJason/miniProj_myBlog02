@@ -37,6 +37,7 @@
 <script>
     $(document).ready(function () {
         getPostDetail();
+        // getComment();
     });
 
     function fn_spread(id) {
@@ -75,8 +76,18 @@
     <hr />
 
     <div id="editBtn" style="display: none;">
+    </div>
+
+
+    <div id="commentList">
 
     </div>
+
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="Please Enter Comment" id="inputComment"></textarea>
+        <button type="button" onclick="leaveComment()" class="btn btn-outline-dark">저장하기</button>
+    </div>
+
 </body>
 
 </html>

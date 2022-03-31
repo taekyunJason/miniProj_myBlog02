@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
 const postSchema = new mongoose.Schema({
   title: String,
+  nickName: String,
+
   content: String,
   comment: String,
   date: Date,
   number: Number,
-  userId: String,
 });
 
 // postSchema.virtual("postId").get(function () {
