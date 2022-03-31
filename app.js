@@ -112,12 +112,7 @@ router.post("/auth", async (req, res) => {
 router.get("/users/me", authMiddleWare, async (req, res) => {
   const { user } = res.locals;
 
-  res.send({
-    user: {
-      email: user.email,
-      nickName: user.nickName,
-    },
-  });
+  res.send({ user });
 });
 
 router.post("/posts", async (req, res) => {
@@ -146,7 +141,7 @@ router.get("/posts", async (req, res) => {
   res.json(postDetail);
 });
 
-router.get("/posts/:postId", async (req, res) => {
+router.get("/posts/:postId", authMiddleWare, async (req, res) => {
   const { postId } = req.params;
   const [detail] = await Post.find({ _id: postId });
   const userId = res.locals.user._id;
@@ -177,12 +172,14 @@ router.delete("/posts", async (req, res) => {
   res.json({ msg: "삭제되었습니다." });
 });
 
-router.post("/comment/:postId", async (req, res) => {
+router.post("/comment/:postId", authMiddleWare, async (req, res) => {
   const { postId } = req.params;
   const { comment } = req.body;
+  const userId = res.locals.user._id;
+  const nickName = res.locals.user.nickName;
   // console.log(postId);
 
-  await Comment.create({ comment, postId });
+  await Comment.create({ comment, postId, userId, nickName });
   // await commentList.save();
 
   res.send({ msg: "저장되었습니다!" });

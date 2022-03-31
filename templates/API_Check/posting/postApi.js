@@ -58,6 +58,9 @@ function getPostDetail() {
     type: "GET",
     url: `/posts/${postId}`,
     contentType: "application/json",
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
     data: {},
     success: function (response) {
       //포스팅 데이터 리스트 받아오기
@@ -215,14 +218,16 @@ function leaveComment() {
   $.ajax({
     type: "POST",
     url: `/comment/${postId}`,
-
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
     data: {
       comment: comment,
     },
     success: function (response) {
       // console.log("포스팅되었습니다");
       alert(response["msg"]);
-      document.location.href = "#";
+      location.href = `/detail?postId=${postId}`;
     },
   });
 }
