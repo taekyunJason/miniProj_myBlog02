@@ -134,6 +134,7 @@ function getPostDetailData() {
   });
 }
 
+//수정화면으로 이동
 function moveToModify() {
   $.ajax({
     type: "GET",
