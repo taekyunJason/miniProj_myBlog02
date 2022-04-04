@@ -172,6 +172,7 @@ router.delete("/posts", async (req, res) => {
   res.json({ msg: "삭제되었습니다." });
 });
 
+//comment 데이터 저장
 router.post("/comment/:postId", authMiddleWare, async (req, res) => {
   const { postId } = req.params;
   const { comment } = req.body;
